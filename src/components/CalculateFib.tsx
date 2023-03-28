@@ -59,20 +59,14 @@ const useFibonacciWithDebounce3 = (value: number) => {
   const debounceValue = useDebounce(value)
   const isDebouncing = debounceValue !== value
 
-  const result = useSWR(isDebouncing ? null : ["fibonacch_debounce_2", debounceValue],
+  const result = useSWR(isDebouncing ? null : ["fibonacch_debounce_3", debounceValue],
     async () => {
       const response = await fetch(`/api/fib?value=${debounceValue}`)
       const json = await response.json()
-      // setApiCallCount(num => num + 1)
+      setApiCallCount(num => num + 1)
       return json.fib
     }, {
     keepPreviousData: false
-  })
-  console.log({
-    value, debounceValue,
-    data: result.data,
-    isLoading: result.isLoading,
-    isValidating: result.isValidating,
   })
   return {
     result,
@@ -90,7 +84,7 @@ const FibonacchResult: FC<{ value: number, isLoading: boolean, fibResult: number
   }
 
   return <div>
-    <div>fib({value}) = {fibResult}</div>
+    <div>fib({value}) = {fibResult}円</div>
     <div>API Call: {apiCallCount}</div>
   </div>
 }
@@ -118,10 +112,10 @@ const WithDebounceFibonacch2: FC<{ value: number }> = ({ value }) => {
   />
 }
 const WithDebounceFibonacch3: FC<{ value: number }> = ({ value }) => {
-  const { result, apiCallCount } = useFibonacciWithDebounce3(value)
-
+  const { result, apiCallCount } = useFibonacciWithDebounce2(value)
+  const isLoading = result.isLoading || result.data === undefined
   return <FibonacchResult value={value}
-    isLoading={result.isLoading || result.data === undefined}
+    isLoading={isLoading}
     fibResult={result.data} apiCallCount={apiCallCount}
   />
 }
