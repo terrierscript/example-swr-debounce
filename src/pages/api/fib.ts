@@ -10,6 +10,7 @@ function fibonacci(n: number): number {
 
 const handler: NextApiHandler = async (req, res) => {
   const { value } = req.query
+
   if (!value) {
     res.status(400).end()
     return

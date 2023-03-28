@@ -1,7 +1,7 @@
 import { Box, Container } from '@chakra-ui/react'
 import Head from 'next/head'
 import React from 'react'
-import { NoDebounce } from '../components/NoDebounce'
+import { CalculateFib } from '../components/CalculateFib'
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <NoDebounce />
+        <CalculateFib />
       </Container>
     </Box>
   )
