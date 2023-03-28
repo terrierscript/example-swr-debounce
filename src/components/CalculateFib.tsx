@@ -40,8 +40,7 @@ const useFibonacciWithDebounce2 = (value: number) => {
   const [apiCallCount, setApiCallCount] = useState(0)
   const debounceValue = useDebounce(value)
   const isDebouncing = debounceValue !== value
-  const result = useSWR(
-    isDebouncing ? null : ["fibonacch_debounce_2", debounceValue],
+  const result = useSWR(isDebouncing ? null : ["fibonacch_debounce_2", debounceValue],
     async () => {
       const response = await fetch(`/api/fib?value=${debounceValue}`)
       const json = await response.json()
@@ -58,12 +57,9 @@ const useFibonacciWithDebounce2 = (value: number) => {
 const useFibonacciWithDebounce3 = (value: number) => {
   const [apiCallCount, setApiCallCount] = useState(0)
   const debounceValue = useDebounce(value)
-  const result = useSWR(() => {
-    if (debounceValue !== value) {
-      return null
-    }
-    return ["fibonacch_debounce_3", debounceValue]
-  },
+  const isDebouncing = debounceValue !== value
+
+  const result = useSWR(isDebouncing ? null : ["fibonacch_debounce_2", debounceValue],
     async () => {
       const response = await fetch(`/api/fib?value=${debounceValue}`)
       const json = await response.json()
